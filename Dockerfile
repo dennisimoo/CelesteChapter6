@@ -1,14 +1,15 @@
-# Use a lightweight web server base image
+# Use Nginx as the base image
 FROM nginx:alpine
 
-# Remove default Nginx HTML content
+# Remove default Nginx content
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy your HTML file into the correct location
-COPY home.html /usr/share/nginx/html/index.html
+# Copy index.html (the page users see)
+COPY index.html /usr/share/nginx/html/index.html
 
-# Tell Render to expose port 80
+# Copy the downloadable file
+COPY home.html /usr/share/nginx/html/home.html
+
 EXPOSE 80
 
-# Start Nginx when container starts
 CMD ["nginx", "-g", "daemon off;"]
